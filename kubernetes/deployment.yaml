@@ -37,7 +37,7 @@ spec:
         - name: DB_PORT
           value: "3306"
         - name: BID_PORT
-          value: "3005"
+          value: "3003"
         - name: BID_SERVER
           value: "139-144-162-115.ip.linodeusercontent.com"
         - name: CLIENT_PORT
