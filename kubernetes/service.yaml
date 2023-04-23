@@ -12,8 +12,8 @@ spec:
   ##accepts external requests by assinging the service an external ip adress
   ports:
     - protocol: TCP
-      port : 3006
+      port : 3002
       #to wich pod it should forward the 
-      targetPort: 3006  
+      targetPort: 3002  
   type: ClusterIP
 
