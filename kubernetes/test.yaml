@@ -2,26 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 ##metadata contains the labels spec contains selectors
 metadata:
-  name: $PROJECT_NAME
+  name: bid-management-service
   labels:
-    app: $PROJECT_NAME
+    app: bid-management-service
 ##specification for deployment(desired not the status status inside etcd)
 spec: 
   replicas: 1
   selector:
     matchLabels:
-      app: $PROJECT_NAME
+      app: bid-management-service
   ##spec for pod( the spec that i want (desired))
   template:
     metadata:
       labels:
-        app : $PROJECT_NAME
+        app : bid-management-service
     spec:
       imagePullSecrets:
         - name : docker-registry-key
       containers:
-      - name : $PROJECT_NAME
-        image: $DOCKER_IMAGE_NAME:$IMAGE_TAG
+      - name : bid-management-service
+        image: mahdiboudaouara/bid-management-service:1.0.12-2
         imagePullPolicy: Always
         ports:  
         - containerPort: 3002
@@ -44,3 +44,22 @@ spec:
           value: "80"
         - name: CLIENT
           value: "139-144-162-115.ip.linodeusercontent.com"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  bid-management-service
+  labels:
+    app: bid-management-service
+##spec for Service
+spec: 
+  type: ClusterIP
+  selector:
+    app: bid-management-service
+  ##accepts external requests by assinging the service an external ip adress
+  ports:
+    - protocol: TCP
+      port : 3002
+      #to wich pod it should forward the 
+      targetPort: 3002  
+  type: ClusterIP
