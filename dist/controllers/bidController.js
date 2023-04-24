@@ -39,20 +39,6 @@ async function lastBid(req, res) {
     res.status(200).send(result[0]);
   });
 }
-
-// const socketIO = require("socket.io")(http, {
-//   cors: {
-//     origin: "http://localhost:3000",
-
-//   },
-// });
-
-// socketIO.on('connection', socket => {
-//   console.log('a user connected');
-//   socket.on('newBid', bid => {
-//     console.log('New bid received:', bid);
-//   });
-// });
 module.exports = {
   createBid,
   lastBid
