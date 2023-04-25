@@ -13,7 +13,7 @@ const io = new Server(server, {
   reconnect: true,
   transports: [ "websocket" ],
   cors: {
-    origin: `http://139-144-162-115.ip.linodeusercontent.com/`,
+    origin: `http://194-195-247-34.ip.linodeusercontent.com/`,
     methods:["GET","POST"]
   },
 });
