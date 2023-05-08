@@ -39,8 +39,8 @@ spec:
         - name: BID_PORT
           value: "3002"
         - name: BID_SERVER
-          value: "194-195-247-34.ip.linodeusercontent.com"
+          value: "194-195-247-90.ip.linodeusercontent.com"
         - name: CLIENT_PORT
           value: "80"
         - name: CLIENT
-          value: "194-195-247-34.ip.linodeusercontent.com"
+          value: "194-195-247-90.ip.linodeusercontent.com"

@@ -10,7 +10,7 @@ pipeline {
     environment {
         SERVER_ADDRESS = ''
         SERVER_USERNAME = 'ec2-user'
-        JENKINS_SERVER_ADDRESS = '3.123.129.244'
+        JENKINS_SERVER_ADDRESS = '3.70.112.194'
         JENKINS_SERVER_USERNAME = 'ec2-user'
         DB_PORT = '3306'
         DB_HOST = '52.29.69.117'
@@ -21,7 +21,7 @@ pipeline {
         PROJECT_NAME = 'bidservice'
         REPO_SERVER = '739761511001.dkr.ecr.eu-central-1.amazonaws.com'
         ECR_REGISTRY = '739761511001.dkr.ecr.eu-central-1.amazonaws.com/ecr-mahdi'
-        APP_URL = '194-195-247-34.ip.linodeusercontent.com'
+        APP_URL = '194-195-247-90.ip.linodeusercontent.com'
         AWS_REGION = 'eu-central-1'
     }
     stages {
