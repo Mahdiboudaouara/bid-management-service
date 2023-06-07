@@ -59,21 +59,22 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-                    if (params.DOCKER_REGISTRY == 'Docker Hub') {
+                        // if (params.DOCKER_REGISTRY == 'Docker Hub') {
                         sh 'docker build -t ${DOCKER_IMAGE_NAME}:${IMAGE_TAG} .'
                         // Push the image to Docker Hub
                         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                             sh "echo $PASS | docker login -u $USER --password-stdin"
                             sh "docker push ${DOCKER_IMAGE_NAME}:${IMAGE_TAG}"
                         }
-                    } else {
-                        sh 'docker build -t ${ECR_REGISTRY}:${IMAGE_TAG} .'
-                        // Push the image to Amazon ECR
-                        withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                            sh "echo $PASS | docker login --username $USER --password-stdin ${REPO_SERVER}"
-                            sh "docker push ${ECR_REGISTRY}:${IMAGE_TAG}"
-                        }
-                    }
+                // }
+                // else {
+                //     sh 'docker build -t ${ECR_REGISTRY}:${IMAGE_TAG} .'
+                //     // Push the image to Amazon ECR
+                //     withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                //         sh "echo $PASS | docker login --username $USER --password-stdin ${REPO_SERVER}"
+                //         sh "docker push ${ECR_REGISTRY}:${IMAGE_TAG}"
+                //     }
+                // }
                 }
             }
         }
@@ -83,14 +84,14 @@ pipeline {
             }
             steps {
                 script {
-                    if (params.DEPLOY_TO == 'EC2') {
-                        def shellCmd = "bash ./server-cmds-node.sh ${DOCKER_IMAGE_NAME} ${IMAGE_TAG}"
-                        sshagent(['ec2-server-key']) {
-                            sh "scp -o StrictHostKeyChecking=no server-cmds-node.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/home/${SERVER_USERNAME}"
-                            sh "scp -o StrictHostKeyChecking=no docker-compose-node.yml ${SERVER_USERNAME}@${SERVER_ADDRESS}:/home/${SERVER_USERNAME}"
-                            sh "ssh -o StrictHostKeyChecking=no ${SERVER_USERNAME}@${SERVER_ADDRESS} ${shellCmd}"
-                        }
-                    } else {
+                    // if (params.DEPLOY_TO == 'EC2') {
+                        // def shellCmd = "bash ./server-cmds-node.sh ${DOCKER_IMAGE_NAME} ${IMAGE_TAG}"
+                        // sshagent(['ec2-server-key']) {
+                        //     sh "scp -o StrictHostKeyChecking=no server-cmds-node.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/home/${SERVER_USERNAME}"
+                        //     sh "scp -o StrictHostKeyChecking=no docker-compose-node.yml ${SERVER_USERNAME}@${SERVER_ADDRESS}:/home/${SERVER_USERNAME}"
+                        //     sh "ssh -o StrictHostKeyChecking=no ${SERVER_USERNAME}@${SERVER_ADDRESS} ${shellCmd}"
+                        
+                    // } else {
                         build job: 'helm-auction/main', propagate: true, wait: true , parameters: [
                             [$class: 'StringParameterValue', name: 'IMAGE_TAG', value: "${IMAGE_TAG}"],
                             [$class: 'StringParameterValue', name: 'DOCKER_IMAGE_NAME', value: "${DOCKER_IMAGE_NAME}"],
@@ -98,6 +99,7 @@ pipeline {
                     // withKubeConfig([credentialsId: 'clusterkubeconfig', serverUrl: 'https://c81ac799-c9ef-4da4-9d8a-872d8e6400c8.eu-central-2.linodelke.net']) {
                     //     sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f -'
                     //     sh 'envsubst < kubernetes/service.yaml | kubectl apply -f -'
+                    // }
                     // }
                     }
                 }
