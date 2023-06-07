@@ -16,7 +16,6 @@ const io = new Server(server, {
     methods:["GET","POST"]
   },
 });
-console.log("io",io)
 io.on('connection', (socket) => {
   socket.on('newBid', bid => {
   console.log('New bid received:', bid);
