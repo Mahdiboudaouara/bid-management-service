@@ -5,7 +5,7 @@ pipeline {
     }
     parameters {
         choice(name: 'DOCKER_REGISTRY', choices: ['Docker Hub', 'Amazon ECR'], description: 'Choose the Docker registry to push the image to')
-        choice(name: 'DEPLOY_TO', choices: ['EC2', 'K8S'], description: 'Choose where to deploy')
+        choice(name: 'DEPLOY_TO', choices: ['K8S', 'EC2'], description: 'Choose where to deploy')
     }
     environment {
         SERVER_ADDRESS = ''
