@@ -3,10 +3,10 @@ pipeline {
     tools {
         nodejs 'nodejs-19'
     }
-    parameters {
-        choice(name: 'DOCKER_REGISTRY', choices: ['Docker Hub', 'Amazon ECR'], description: 'Choose the Docker registry to push the image to')
-        choice(name: 'DEPLOY_TO', choices: ['K8S', 'EC2'], description: 'Choose where to deploy')
-    }
+    // parameters {
+    //     choice(name: 'DOCKER_REGISTRY', choices: ['Docker Hub', 'Amazon ECR'], description: 'Choose the Docker registry to push the image to')
+    //     choice(name: 'DEPLOY_TO', choices: ['K8S', 'EC2'], description: 'Choose where to deploy')
+    // }
     environment {
         SERVER_ADDRESS = ''
         SERVER_USERNAME = 'ec2-user'
@@ -103,7 +103,6 @@ pipeline {
                     // }
                     }
                 }
-            }
         }
 
         stage('commit version update') {
